@@ -1,0 +1,3 @@
+Attempts to deconstruct Ncorr's DIC to get only the needed information.
+
+Process not complete.
