@@ -1,3 +1,3 @@
-Attempts to deconstruct Ncorr's DIC to get only the needed information.
+Creating groups of functions to analysis a series of videos.
 
-Process not complete.
+Upon completion, more instructions on use will be added here.
