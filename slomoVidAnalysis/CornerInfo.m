@@ -23,7 +23,7 @@ function vidStruct = CornerInfo( cornerNum, vidStruct )
                     %Replaces slots if new distance is less than the previous
                     newDistance = sqrt((cornerPoints(i+1,1))^2 + (cornerPoints(i+1,2)^2));
                     if distance > newDistance
-                        distance = cornerPoints(i+1,3);
+                        distance = newDistance;
                         x = cornerPoints(i+1,1);
                         y = cornerPoints(i+1,2);
                         location = i+1;
