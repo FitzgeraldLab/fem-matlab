@@ -2,9 +2,10 @@ function vidStruct = CornerInfo( cornerNum, vidStruct )
 %The purpose of the function is to extact information about the corners of
 %objects in the images and puts into the structure
 %   Input:  cornerNum(int): Number of corners on the object
-%           vidStruct
+%           vidStruct(Structure): Structure to output video in **
 %
-%   Output: No output, but adds to structures
+%
+%   Output: vidStruct(Structure): The same structure as the input
 
     for n = 1:length(vidStruct)
         cornerPoints = corner(vidStruct(n).image);
@@ -60,22 +61,23 @@ function vidStruct = CornerInfo( cornerNum, vidStruct )
                     %Replaces slots if new distance is less than the previous
                 
                     if distance > distance2
-                        x = d(i+1,1);
-                        y = d(i+1,2);
-                        distance = sqrt((x-cPrev(m,1))^2 + (y-cPrev(m,2))^2);
+                        x = x2;
+                        y = y2;
+                        distance = distance2;
                         location = i+1; 
                 
                     elseif distance == distance2
                     
                         if x > x2
-                            x = d(i+1,1);
-                            y = d(i+1,2);
-                            distance = sqrt((x-cPrev(m,1))^2 + (y-cPrev(m,2))^2);
+                            x = x2;
+                            y = y2;
+                            distance = distance2;
                             location = i+1;
                         end
                     end
                 end
-                points(m) = [x,y];
+                points(m,1) = x;
+                points(m,2) = y;
                 cornerPoints(location,:) = [];
             end
         end
