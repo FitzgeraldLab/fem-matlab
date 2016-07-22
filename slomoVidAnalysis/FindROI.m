@@ -8,7 +8,7 @@ function vidStruct = FindROI( vidStruct, thresh )
     
     for i = 1:length(vidStruct)
         image = vidStruct(i).image;
-        if exist(thresh, 'var') == 0
+        if exist('thresh', 'var') == 0
             thresh = graythresh(image);
         end
         bw = im2bw(image, thresh);
