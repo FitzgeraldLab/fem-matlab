@@ -1,4 +1,4 @@
-function [ vidStruct ] = LabFunction( calibrateName, checkerLength, boardLength )
+function [ output ] = LabFunction( calibrateName, checkerLength, boardLength )
 %The purpose of this function is to have one file to perform the lab
 %   
 
@@ -6,22 +6,20 @@ function [ vidStruct ] = LabFunction( calibrateName, checkerLength, boardLength 
     handles_ncorr = ncorr;
     if exist('vidInfo.mat','file')
         load('vidInfo.mat');
-    elseif ~exist('vidStruct', 'var')
-        vidStruct = struct('image',{}, 'roi',{}, );
     end
-    if  isempty(vidStruct.image)
-        vidStruct = Vid2Img( vidname, vidStruct);
-        vidStruct = RemoveBackground(vidStruct,backName);
+    if  ~exist('vidCell','var')
+        vidCell = Vid2Img( vidname);
+        vidCell = RemoveBackground(vidCell,backName);
         [param, lengthConvert] = GetCalibration(calibrateName, checkerLength, boardLength);
-        vidStruct = CalibrateImages(vidStruct,param);
+        vidCell = CalibrateImages(vidCell,param);
     end
-    if isempty(vidStruct.roi)
-        vidStruct = FindROI(vidStruct);
+    if isempty(vidCell.roi)
+        vidROI = FindROI(vidCell);
     end
     
     %%Ncorr Commands
-    handles_ncorr.set_ref(vidStruct(1).image);
-    handles_ncorr.set
+    handles_ncorr.set_ref(vidCell(:,:,1));
+    handles_ncorr.set_cur(vidCell);
     
 end
 

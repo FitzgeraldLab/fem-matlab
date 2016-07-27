@@ -10,12 +10,12 @@ function [ params, lengthConvert ] = GetCalibration( calibrateName, checkerLengt
 
     video = vision.VideoFileReader(calibrateName);
     images = struct('images',{});
-    n = 0;
+    count = 0;
     while ~isDone(video)
-        n = n + 1;
+        count = count + 1;
         currentImage = step(video);
         currentImage = rgb2gray(currentImage);
-        images(n).images = currentImage;
+        images(count).images = currentImage;
     end
     [imagePoints, boardSize] = detectCheckerboardPoints(images.images);
     worldPoints = generateCheckerboardPoints(boardSize, checkerLength);

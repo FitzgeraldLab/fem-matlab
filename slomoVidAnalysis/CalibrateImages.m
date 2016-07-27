@@ -1,15 +1,15 @@
-function vidStruct = CalibrateImages( vidStruct, cameraParam )
+function vidCell = CalibrateImages( vidCell, cameraParam )
 %The purpose of this function is to calibrate each image in the structure
-%   Input:  vidStruct(Structure): Structure to output video in *
+%   Input:  vidCell(Cell): Cell created to hold all images
 %           cameraParam(Integer): This is the correction information for the camera
 %
-%   Output: vidStruct(Structure): The same structure as the input
-%
-%   *vidStruct must follow conventions listed in instructions
+%   Output: vidStruct(Cell): Cell created to hold all images
 
-    for i = 1:length(vidStruct)
-        image = vidStruct(i).image;
+    [~,~,k] = size(vidCell);
+
+    for count = 1:k
+        image = vidCell(:,:,count);
         [image, ~] = undistortImage(image,cameraParam);
-        vidStruct(i).image = image;
+        vidCell(:,:,count) = image;
     end
 end

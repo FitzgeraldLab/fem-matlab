@@ -1,17 +1,21 @@
-function vidStruct = RemoveBackground( vidStruct, backName )
+function vidCell = RemoveBackground( vidCell, backName )
 %The purpose of this function is remove the background from an image
-%   Input:  vidStruct(Structure): Structure to output video in *
+%   Input:  vidCell(Cell): Cell created to hold all images
 %           backName(String): Name of the image used to remove the background
 %
-%   Output: vidStruct(Structure): The same structure as the input
-%
-%   *vidStruct must follow conventions listed in instructions
+%   Output: vidCell(Cell): Cell created to hold all images
 
     background = imread(backName);
+    [i,j,k] = size(vidCell);
+    [x,y] = size(background);
     
-    for i = 1:length(vidStruct)
-        image = vidStruct(i).image;
-        image = image - background;
-        vidStruct(i).image = image;
+    if (i == x && j == y)
+        for count = 1:k
+            image = vidCell(:,:,count);
+            image = image - background;
+            vidCell(:,:,count) = image;
+        end
+    else
+        error('Size of background image must be same as images in cell')
     end
 end
