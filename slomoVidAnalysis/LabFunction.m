@@ -20,6 +20,8 @@ function [ vidStruct ] = LabFunction( calibrateName, checkerLength, boardLength 
     end
     
     %%Ncorr Commands
-
+    handles_ncorr.set_ref(vidStruct(1).image);
+    handles_ncorr.set
+    
 end
 
