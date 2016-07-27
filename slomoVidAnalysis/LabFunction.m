@@ -1,7 +1,25 @@
-function [ output_args ] = LabFunction( input_args )
-%UNTITLED10 Summary of this function goes here
-%   Detailed explanation goes here
+function [ vidStruct ] = LabFunction( calibrateName, checkerLength, boardLength )
+%The purpose of this function is to have one file to perform the lab
+%   
 
+    addpath('DIC')
+    handles_ncorr = ncorr;
+    if exist('vidInfo.mat','file')
+        load('vidInfo.mat');
+    elseif ~exist('vidStruct', 'var')
+        vidStruct = struct('image',{}, 'roi',{}, );
+    end
+    if  isempty(vidStruct.image)
+        vidStruct = Vid2Img( vidname, vidStruct);
+        vidStruct = RemoveBackground(vidStruct,backName);
+        [param, lengthConvert] = GetCalibration(calibrateName, checkerLength, boardLength);
+        vidStruct = CalibrateImages(vidStruct,param);
+    end
+    if isempty(vidStruct.roi)
+        vidStruct = FindROI(vidStruct);
+    end
+    
+    %%Ncorr Commands
 
 end
 
