@@ -14,9 +14,5 @@ function vidCell = Vid2Img( vidName)
         currentImage = rgb2gray(currentImage);
         temp(k).image = currentImage;
     end
-    [i,j] = size(currentImage);
-    vidCell = cell(i,j,k);
-    for count = 1:k
-        vidCell(:,:,count) = temp(count).image;
-    end
+    vidCell = struct2cell(temp);
 end

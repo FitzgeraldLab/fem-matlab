@@ -1,4 +1,4 @@
-function [ output ] = LabFunction( vidname, backName, calibrateName, checkerLength, boardLength )
+function handles_ncorr = LabFunction( vidname, backName, calibrateName, checkerLength, boardLength )
 %The purpose of this function is to have one file to perform the lab
 %   
 
@@ -7,13 +7,13 @@ function [ output ] = LabFunction( vidname, backName, calibrateName, checkerLeng
     if exist('vidInfo.mat','file')
         load('vidInfo.mat');
     end
-    if  ~exist('vidCell','var')
+    if ~exist('vidCell','var')
         vidCell = Vid2Img( vidname);
         vidCell = RemoveBackground(vidCell,backName);
         [param, lengthConvert] = GetCalibration(calibrateName, checkerLength, boardLength);
         vidCell = CalibrateImages(vidCell,param);
     end
-    if isempty(vidCell.roi)
+    if ~exist('vidROI','var')
         vidROI = FindROI(vidCell);
     end
     
