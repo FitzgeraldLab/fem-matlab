@@ -1,9 +1,10 @@
-function [ params, lengthConvert ] = GetCalibration( calibrateName, checkerLength, boardLength, current )
+function [ params, lengthConvert ] = GetCalibration( calibrateName, checkerLength, boardLength, current, div )
 %The purpose of this function is to get the information to undistort images
 %   Input:  calibrateName(String): name of the video used to get calibration parameters
 %           checkerLength(int): the length of the sides of the squares in the checker pattern
 %           boardLength(int Array): the total height then wide of the checker pattern
 %           current(string): location of the file you are using this program in
+%           div(string): if frame number is divisible by that number, use that frame
 %
 %   Output: params(int): the information to undistort images
 %           lengthConvert(int): multiply to pixel distance to get world distance
@@ -14,15 +15,14 @@ function [ params, lengthConvert ] = GetCalibration( calibrateName, checkerLengt
     calLocation = fullfile(current,'CalImages');
     video = vision.VideoFileReader(calibrateName);
     count = 0;
-    i = 15;
     cd(calLocation);
     delete(calLocation)
     while ~isDone(video)
         count = count + 1;
         currentImage = step(video);
         % Only saves so many images based on the number in i
-        if rem(count,i) == 0
-            num = count/i;
+        if rem(count,div) == 0
+            num = count/div;
             currentImage = rgb2gray(currentImage);
             filename = sprintf('image%d.jpg',num);
             fullfilenames{num} = fullfile(calLocation,filename);
