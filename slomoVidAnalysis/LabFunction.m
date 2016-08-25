@@ -1,26 +1,24 @@
-function handles_ncorr = LabFunction( vidname, backName, calibrateName, checkerLength, boardLength )
+function handles_ncorr = LabFunction( vidname, backName, calibrateName, checkerLength, boardLength, current, divCal, divVid )
 %The purpose of this function is to have one file to perform the lab
 %   
 
     addpath('DIC')
     handles_ncorr = ncorr;
-    if exist('vidInfo.mat','file')
-        load('vidInfo.mat');
-    end
-    if ~exist('vidCell','var')
-        vidCell = Vid2Img( vidname);
-        vidCell = RemoveBackground(vidCell,backName);
-        [param, lengthConvert] = GetCalibration(calibrateName, checkerLength, boardLength);
-        vidCell = CalibrateImages(vidCell,param);
-    end
-    if ~exist('vidROI','var')
-        vidROI = FindROI(vidCell);
-    end
+    
+    vidCell = Vid2Img(vidname, divVid);
+    vidCell2 = RemoveBackground(vidCell,backName);
+    [param, lengthConvert] = GetCalibration(calibrateName, checkerLength, boardLength, current, divCal);
+    vidCell = CalibrateImages(vidCell,param);
+    vidCell2 = CalibrateImages(vidCell2,param);
+    vidROI = FindROI(vidCell2);
+    
+    image1 = vidCell{1,1,1};
+    image1ROI = vidROI{1,1,1};
     
     %%Ncorr Commands
-    handles_ncorr.set_ref(vidCell(:,:,1));
+    handles_ncorr.set_ref(image1);
     handles_ncorr.set_cur(vidCell);
-    handles_ncorr.set_roi_ref(vidROI(:,:,1));
+    handles_ncorr.set_roi_ref(image1ROI);
     handles_ncorr.set_roi_cur(vidROI);
     
     if length(lengthConvert) == 1

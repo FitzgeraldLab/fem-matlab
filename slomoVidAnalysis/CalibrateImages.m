@@ -8,8 +8,8 @@ function vidCell = CalibrateImages( vidCell, cameraParam )
     [~,~,k] = size(vidCell);
 
     for count = 1:k
-        image = vidCell(:,:,count);
+        image = vidCell{1,1,count};
         [image, ~] = undistortImage(image,cameraParam);
-        vidCell(:,:,count) = image;
+        vidCell{1,1,count} = image;
     end
 end

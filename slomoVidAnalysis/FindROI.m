@@ -9,12 +9,12 @@ function vidCell = FindROI( vidCell, thresh )
     [~,~,k] = size(vidCell);
 
     for count = 1:k
-        image = vidCell(:,:,count);
+        image = vidCell{1,1,count};
         if exist('thresh', 'var') == 0
             thresh = graythresh(image);
         end
         bw = im2bw(image, thresh);
         bw = imdilate(bw, strel('disk',2));
-        vidCell(:,:,count) = bw;
+        vidCell{1,1,count} = bw;
     end    
 end
