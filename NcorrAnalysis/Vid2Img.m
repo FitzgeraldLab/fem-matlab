@@ -25,8 +25,7 @@ function vidCell = Vid2Img( vidName, div, lastNum)
     
     %Create a cell for holding images
     vidCell = cell(1,1,count/div);
-    release(video)
-    video.PlayCount = 1;
+    reset(video)
     
     %Reread video
     i = 0;
