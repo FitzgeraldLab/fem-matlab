@@ -1,7 +1,7 @@
 %% Introduction
 
 %% Variables
-videoname = ''; % Name of the video
+videoLoc = ''; % Name of the video
 CalVideo = ''; % Name of the video for the calibration images
 backname = ''; % Name of the image that contains only the background
 radius = 21; % Subset Radius (default is 21)
@@ -14,17 +14,19 @@ subsetRunc = false; % if true, then subset truncation is enabled (default is fal
 
 %% Setup
 current = pwd;
-addpath('C:\Users\Matthew\Documents\MATLAB\Calibration Methods')
-addpath(fullfile(current, 'Images'));
-background = imread(backname);
-background = RGB2gray(background);
+addpath('/home/mstanley3/Documents/MATLAB/ImageProcessing/TestVids')
+addpath(fullfile(current, 'DIC'));
+if backname ~= ''
+    background = imread(backname);
+    background = RGB2gray(background);
+end
 
 %% Calibration
 % Use one of the two functions:
 
 % params = CameraParamsImage(ImageFolder, SquareSize);
 % params = CameraParamsVideo(VidName, SquareSize, units, n);
-showReprojectionErrors(params);
+%showReprojectionErrors(params);
 
 %% Image Analysis
 vidReader = vision.VideoFileReader(fullfile(current, CalVideo));

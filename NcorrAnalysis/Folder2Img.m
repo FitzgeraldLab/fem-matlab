@@ -18,6 +18,7 @@ function vidCell = Folder2Img( fileName, vidType )
         while ~isDone(video)
             if i == 1
                 frame = step(video);
+                frame = double(frame);
                 vidCell{1,1,count} = frame;
             else
                 step(video);
