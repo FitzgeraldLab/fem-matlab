@@ -7,7 +7,7 @@ function [handles_ncorr, vidCell] = LabFunction( vidLoc, vidType, backName, cali
     handles_ncorr = ncorr;
     
     vidCell = Folder2Img(vidLoc, vidType);
-    vidRef = FindROI(vidCell);
+    vidCell = cropImages(vidCell);
     if ~strcmp(backName, '')
         vidCell2 = RemoveBackground(vidCell,backName);
     end

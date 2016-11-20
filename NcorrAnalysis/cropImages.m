@@ -6,7 +6,8 @@ function vidCellNew = cropImages( vidCell )
     [~,~,k] = size(vidCell);
     
     [image,rect] = imcrop(vidCell{1,1,1});
-    vidCellNew{1,1,1} = image;
+    uiwait
+    vidCellNew{1,1,1} = image;    
     
     for count = 2:k
         image = imcrop(vidCell{1,1,count},rect);
