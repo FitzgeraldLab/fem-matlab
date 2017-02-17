@@ -5,15 +5,20 @@ function lastNum = CropVid( vidName,div )
     video = vision.VideoFileReader(vidName);
     frameRate = video.SampleRate;
     
+    sendTo = fullfile(pwd,'finished');
+    
     i = 0;
-    lastNum = 1;
-    name = 'video' + num2str(lastNum) + '.mov';
-    videoWriter = vision.VideoFileWriter(name,'FrameRate',frameRate);
+    
+    lastVidNum = 0;
+    lastNum = 0;
+    name = 'video' + num2str(lastNum+1) + '.mov';
+    videoWriter = vision.VideoFileWriter(fullfile(sendTo,name),'FrameRate',frameRate);
+    
     while ~isDone(video)
         if any(div(:) == i) %check if current frame is in division
             release(videoWriter)
             lastNum = lastNum + 1;
-            name = 'video' + num2str(lastNum) + '.mov';
+            name = 'video' + num2str(lastNum+1) + '.mov';
             videoWriter = vision.VideoFileWriter(name,'FrameRate',frameRate);
         end
         i = i + 1;
