@@ -6,6 +6,9 @@ function lastNum = CropVid( vidName,div )
     
     sendTo = fullfile(pwd,'finished');
     
+    mkdir(sendTo);
+    cd(sendTo);
+    
     i = 0;
     
     lastNum = 0;
