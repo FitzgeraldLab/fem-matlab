@@ -4,7 +4,7 @@ function lastNum = CropVid( vidName,div )
 
     video = vision.VideoFileReader(vidName);
     
-    sendTo = fullfile(pwd,'finished');
+    sendTo = fullfile(pwd,vidName(1:end-4));
     
     mkdir(sendTo);
     cd(sendTo);
