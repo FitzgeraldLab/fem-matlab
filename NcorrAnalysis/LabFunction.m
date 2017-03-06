@@ -6,7 +6,8 @@ function [handles_ncorr, vidCell] = LabFunction( vidLoc, vidType, backName, cali
     addpath('/home/mstanley3/Documents/MATLAB/ImageProcessing/TestVids')
     handles_ncorr = ncorr;
     
-    vidCell = Folder2Img(vidLoc, vidType);
+    %vidCell = Folder2Img(vidLoc, vidType);
+    vidCell = Vid2Img(vidLoc);
     vidCell = cropImages(vidCell);
     if ~strcmp(backName, '')
         vidCell2 = RemoveBackground(vidCell,backName);
