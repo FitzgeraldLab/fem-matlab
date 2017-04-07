@@ -34,6 +34,7 @@ function vidCell = Vid2Img( vidName, div, lastNum)
         currentImage = step(video);
         if rem(i,div) == 0
             currentImage = uint8(currentImage);
+            whos -file currentImage
             vidCell{1,1,(i/div)} = currentImage;
         end
         if i == lastNum
