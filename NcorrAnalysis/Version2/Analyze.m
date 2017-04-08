@@ -9,12 +9,12 @@ function vidCell = Analyze( vidName,start,stop )
     vidCell = cell(1,1,stop-start);
     while ~isDone(video)
         image = step(video);
-        
+        image = im2uint8(image);
         if (i == start)
             [image,rect] = imcrop(image);
             
             n=0;
-            reference = uint8(image);
+            reference = image;
         elseif (i > start && i < stop)
             image = imcrop(image,rect);
             
