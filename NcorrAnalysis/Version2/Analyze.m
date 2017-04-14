@@ -1,12 +1,19 @@
-function vidCell = Analyze( vidName,start,stop )
+function Analyze( vidName,start,stop,mode,max )
 %CROPVID Summary of this function goes here
 %   Detailed explanation goes here
-
+    
+    mode = upper(mode);
+    if ((mode ~= 'SAVE') || (mode ~= 'NCORR'))
+        return
+    elseif (~exist('max'))
+        max = fix((stop-start),10);
+    end
+    
     video = vision.VideoFileReader(vidName);
     
     i = 0;
-    
-    vidCell = cell(1,1,stop-start);
+    index = 1;
+    vidCell = cell(1,1,stop-start-1);
     while ~isDone(video)
         image = step(video);
         image = im2uint8(image);
@@ -20,6 +27,15 @@ function vidCell = Analyze( vidName,start,stop )
             
             n=n+1;
             vidCell{1,1,n} = image;
+            if (mode == 'SAVE')
+                if(n == max)
+                    name = strcat('ready',int2str(index));
+                    save(name,'reference','vidCell')
+                    
+                    index = index + 1;
+                    n = 0;
+                end
+            end
         elseif (i >= stop)
             break
         end
@@ -27,7 +43,9 @@ function vidCell = Analyze( vidName,start,stop )
     end
     release(video);
     
-    handles_ncorr = ncorr;
-    handles_ncorr.set_ref(reference);
-    handles_ncorr.set_cur(vidCell);
+    if (mode == 'NCORR')
+        handles_ncorr = ncorr;
+        handles_ncorr.set_ref(reference);
+        handles_ncorr.set_cur(vidCell);
+    end
 end
