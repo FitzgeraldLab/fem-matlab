@@ -3,7 +3,7 @@ function Analyze( vidName,start,stop,mode,max )
 %   Detailed explanation goes here
     
     mode = upper(mode);
-    if ((mode ~= 'SAVE') || (mode ~= 'NCORR'))
+    if (~strcmp(mode,'SAVE') && ~strcmp(mode,'NCORR'))
         return
     elseif (~exist('max'))
         max = fix((stop-start),10);
@@ -27,7 +27,7 @@ function Analyze( vidName,start,stop,mode,max )
             
             n=n+1;
             vidCell{1,1,n} = image;
-            if (mode == 'SAVE')
+            if (strcmp(mode,'SAVE'))
                 if(n == max)
                     name = strcat('ready',int2str(index));
                     save(name,'reference','vidCell')
@@ -43,7 +43,7 @@ function Analyze( vidName,start,stop,mode,max )
     end
     release(video);
     
-    if (mode == 'NCORR')
+    if (strcmp(mode,'NCORR'))
         handles_ncorr = ncorr;
         handles_ncorr.set_ref(reference);
         handles_ncorr.set_cur(vidCell);
