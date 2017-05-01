@@ -1,11 +1,11 @@
-function Analyze( vidName,start,stop,mode,max )
+function handles_ncorr = Analyze( vidName,start,stop,mode,max )
 %CROPVID Summary of this function goes here
 %   Detailed explanation goes here
     
     mode = upper(mode);
     if (~strcmp(mode,'SAVE') && ~strcmp(mode,'NCORR'))
-        return
-    elseif (~exist('max'))
+        error('Improper mode type')
+    elseif (~exist('max')) %#ok<EXIST>
         max = fix((stop-start),10);
     end
     
@@ -47,5 +47,7 @@ function Analyze( vidName,start,stop,mode,max )
         handles_ncorr = ncorr;
         handles_ncorr.set_ref(reference);
         handles_ncorr.set_cur(vidCell);
+    else
+        handles_ncorr = 0;
     end
 end
