@@ -10,11 +10,11 @@ function handles_ncorr = Analyze( vidName,start,stop,mode,max )
         max = fix((stop-start),10);
     end
     
-    fileName = vidName(1:end-4);
-    mkdir(strcat(pwd,fileName));
-    cd(fileName);
-    
     video = vision.VideoFileReader(vidName);
+    
+    fileName = vidName(1:end-4);
+    mkdir(fullfile(pwd,fileName));
+    cd(fileName);
     
     i = 0;
     index = 1;
