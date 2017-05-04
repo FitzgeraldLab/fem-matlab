@@ -5,9 +5,14 @@ function handles_ncorr = Analyze( vidName,start,stop,mode,max )
     mode = upper(mode);
     if (~strcmp(mode,'SAVE') && ~strcmp(mode,'NCORR'))
         error('Improper mode type')
-    elseif (~exist('max')) %#ok<EXIST>
+    end
+    if (~exist('max')) %#ok<EXIST>
         max = fix((stop-start),10);
     end
+    
+    fileName = vidName(1:end-4);
+    mkdir(strcat(pwd,fileName));
+    cd(fileName);
     
     video = vision.VideoFileReader(vidName);
     
@@ -47,7 +52,8 @@ function handles_ncorr = Analyze( vidName,start,stop,mode,max )
         handles_ncorr = ncorr;
         handles_ncorr.set_ref(reference);
         handles_ncorr.set_cur(vidCell);
-    else
+    elif(strcmp(mode,'SAVE'))
+        cd('..')
         handles_ncorr = 0;
     end
 end
