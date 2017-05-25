@@ -3,9 +3,9 @@ function PreAnalyze( vidName, times, max )
 %with a cell length of max.
 %   Detailed explanation goes here
     
-    [~,length] = size(times);
+    [length,~] = size(times);
     start = times(1,1);
-    stop = times(2,1);
+    stop = times(1,2);
 
     if (~exist('max')) %#ok<EXIST>
         max = fix((stop-start),10);
@@ -20,7 +20,7 @@ function PreAnalyze( vidName, times, max )
     frame = 0;
     index = 1;
     pointer = 1;
-    vidCell = cell(1,1,max-1);
+    vidCell = cell(1,1,max);
     while ~isDone(video)
         image = step(video);
         image = im2uint8(image);
@@ -51,8 +51,8 @@ function PreAnalyze( vidName, times, max )
         elseif (frame >= stop)
             pointer = pointer + 1;
             if (pointer < length)
-                start = times(1,pointer);
-                stop = times(2,pointer);
+                start = times(pointer,1);
+                stop = times(pointer,2);
             end
         end
         frame = frame + 1;
