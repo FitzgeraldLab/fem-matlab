@@ -7,7 +7,7 @@ function handles = NcorrAnalyze( saveName )
     addpath('/home/mstanley3/Documents/MATLAB/dic')
     
     handles = ncorr;
-    handles.set_ref(referenece);
+    handles.set_ref(reference);
     handles.set_cur(vidCell);
 
 end

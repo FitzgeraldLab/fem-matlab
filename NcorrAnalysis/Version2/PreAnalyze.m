@@ -1,5 +1,6 @@
 function PreAnalyze( vidName, times, max )
-%UNTITLED Summary of this function goes here
+%PreAnalyze This function loads the vidName video to prep it under times
+%with a cell length of max.
 %   Detailed explanation goes here
     
     [~,length] = size(times);
@@ -19,7 +20,7 @@ function PreAnalyze( vidName, times, max )
     frame = 0;
     index = 1;
     pointer = 1;
-    vidCell = cell(1,1,stop-start-1);
+    vidCell = cell(1,1,max-1);
     while ~isDone(video)
         image = step(video);
         image = im2uint8(image);
@@ -29,17 +30,23 @@ function PreAnalyze( vidName, times, max )
             n=0;
             reference = image;
             imwrite(reference,'reference.jpeg')
-        elseif (frame > start && frame < stop)
+        elseif (frame >= start && frame <= stop)
             image = imcrop(image,rect);
             
             n=n+1;
             vidCell{1,1,n} = image;
-            if((n == max) || (frame == stop-1))
+            if((n == max) || (n == nprime))
                 name = strcat('ready',int2str(index));
                 save(name,'reference','vidCell')
                 
                 index = index + 1;
                 n = 0;
+                if ((frame - stop) < max)
+                    vidCell = cell(1,1,max);
+                else
+                    nprime = frame - stop;
+                    vidCell = cell(1,1,nprime);
+                end
             end
         elseif (frame >= stop)
             pointer = pointer + 1;
