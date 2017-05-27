@@ -22,6 +22,7 @@ function PreAnalyze( vidName, times, max )
     pointer = 1;
     vidCell = cell(1,1,max);
     while ~isDone(video)
+        dif = stop-frame;
         image = step(video);
         image = im2uint8(image);
         if ((frame == start) && (index == 1))
@@ -35,17 +36,16 @@ function PreAnalyze( vidName, times, max )
             
             n=n+1;
             vidCell{1,1,n} = image;
-            if((n == max) || (n == nprime))
+            if((n == max) || (dif == 0))
                 name = strcat('ready',int2str(index));
                 save(name,'reference','vidCell')
                 
                 index = index + 1;
                 n = 0;
-                if ((frame - stop) < max)
+                if (dif > max)
                     vidCell = cell(1,1,max);
                 else
-                    nprime = frame - stop;
-                    vidCell = cell(1,1,nprime);
+                    vidCell = cell(1,1,dif);
                 end
             end
         elseif (frame >= stop)
