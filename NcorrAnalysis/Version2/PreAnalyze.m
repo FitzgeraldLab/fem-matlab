@@ -58,6 +58,7 @@ function PreAnalyze( vidName, times, max )
         frame = frame + 1;
     end
     release(video);
+    ch('..');
 
 end
 
