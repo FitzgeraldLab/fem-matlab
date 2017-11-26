@@ -9,6 +9,8 @@ function PreAnalyze( vidName, times, max )
 
     if (~exist('max')) %#ok<EXIST>
         max = fix((stop-start),10);
+    elseif (max > stop - start)
+        max = stop - start - 1;
     end
     
     video = vision.VideoFileReader(vidName);
@@ -53,12 +55,14 @@ function PreAnalyze( vidName, times, max )
             if (pointer < length)
                 start = times(pointer,1);
                 stop = times(pointer,2);
+            else
+                break;
             end
         end
         frame = frame + 1;
     end
     release(video);
-    ch('..');
+    cd('..');
 
 end
 
