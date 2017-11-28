@@ -1,9 +1,9 @@
 %% Setup
 % Add path to fem-matlab
-addpath("/home/mstanley3/Documents/MATLAB/ImageProcessing/fem-matlab/NcorrAnalysis/Version2");
+addpath('/home/mstanley3/Documents/MATLAB/ImageProcessing/fem-matlab/NcorrAnalysis/Version2');
 %%
 % Add path of video file
-videoPath = "/home/mstanley3/Desktop/Second Videos";
+videoPath = '/home/mstanley3/Desktop/Second Videos';
 cd 
 addpath(pwd);
 %%
