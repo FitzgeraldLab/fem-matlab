@@ -10,6 +10,7 @@ function openTensileHueghs(fileName)
     Flag = 0;
     Index = 0;
     minguess = 200;
+    countFlag = 0;
     
     arrayStrain = zeros(1,minguess);
     arrayStress = zeros(1,minguess);
@@ -20,9 +21,19 @@ function openTensileHueghs(fileName)
     % Open File
     File = fopen(fileName,'r');
     %%
+    % Create and open new file
+    fileName = fileName(1:end-4);
+    mkdir(fullfile(pwd,fileName));
+    cd(fileName);
+    %%
     % Read Line Loop
     while ~feof(File)
         line = fgets(File);
+        countFlag = countFlag +1;
+        if (countFlag > 231)
+            display(line);
+            display('pause');
+        end
         if (Flag == 0)
             if(strcmp('"Channel Data"',line))
                 Flag = 1;
