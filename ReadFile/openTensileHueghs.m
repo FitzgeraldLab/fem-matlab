@@ -31,7 +31,7 @@ function openTensileHueghs(fileName)
         if (Flag == 0)
             if(strcmp('"Channel Data"',line))
                 Flag = 1;
-                n = 2;
+                n = 1;
             end
         elseif (Flag == 1)
             if n
@@ -70,5 +70,6 @@ function openTensileHueghs(fileName)
     %%
     % Close File
     fclose(File);
+    cd ..
 end
 
