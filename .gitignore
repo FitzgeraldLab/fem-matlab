@@ -24,6 +24,7 @@
 codegen/
 *.mat
 *.fig
+*.html
 
 ## LaTeX files
 *.synctex.gz
