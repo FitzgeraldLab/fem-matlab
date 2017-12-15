@@ -10,7 +10,6 @@ function openTensileHueghs(fileName)
     Flag = 0;
     Index = 0;
     minguess = 200;
-    countFlag = 0;
     
     arrayStrain = zeros(1,minguess);
     arrayStress = zeros(1,minguess);
@@ -28,12 +27,7 @@ function openTensileHueghs(fileName)
     %%
     % Read Line Loop
     while ~feof(File)
-        line = fgets(File);
-        countFlag = countFlag +1;
-        if (countFlag > 231)
-            display(line);
-            display('pause');
-        end
+        line = fgetl(File);
         if (Flag == 0)
             if(strcmp('"Channel Data"',line))
                 Flag = 1;
@@ -58,6 +52,7 @@ function openTensileHueghs(fileName)
         elseif (Flag == 3)
             if (strcmp('',line))
                 Flag = 0;
+                Index = Index + 1;
                 fileName = strcat('TensileTest',num2str(Index));
                 save(fileName, 'unitStrain', 'unitStress', 'unitLoad', 'unitExtension', ...
                 'unitTime', 'arrayStrain', 'arrayStress', 'arrayLoad','arrayExtension','arrayTime');
