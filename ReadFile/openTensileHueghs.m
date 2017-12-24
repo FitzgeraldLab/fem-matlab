@@ -1,6 +1,7 @@
 function openTensileHueghs(fileName)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%openTensileHueghs Takes text file from Hueghs and converts to readible file
+%   INPUT:
+%       fileName is the name of the file from Hueghs
     %%
     % Create Trackers
     % Flag: 0 is init/restart, 1 is 2 line delay, 2 is start table, 3 is start numbers
