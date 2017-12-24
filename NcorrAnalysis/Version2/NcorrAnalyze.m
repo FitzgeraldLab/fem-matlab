@@ -12,7 +12,7 @@ function handles = NcorrAnalyze( saveName )
     load(saveName);
     %%
     % Make sure the path to ncorr is available
-    addpath('/home/mstanley3/Documents/MATLAB/dic')
+    addpath('/home/mstanley3/Documents/MATLAB/ncorr_v1_2_1')
     %%
     % Setup ncorr
     handles = ncorr;
