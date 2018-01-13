@@ -1,15 +1,25 @@
 %% Setup
 % Add path to fem-matlab
 addpath('/home/mstanley3/Documents/MATLAB/ImageProcessing/fem-matlab/NcorrAnalysis/Version2');
+
+FRAMESPLIT = 60;
 %%
 % Add path of video file
-videoPath = '/home/mstanley3/Desktop/Second Videos';
-cd 
-addpath(pwd);
+videoPath1 = '/home/mstanley3/Desktop/Second Videos';
+videoPath2 = '/home/mstanley3/Desktop/Second Videos';
 %%
 % Perform setup
-PreAnalyze('slomo_1485922878.mov',[1,559;590,736;758,1152;1187,1294;
-    1317,1795;1831,2411;2451,2983;3015,3865;3897,5636;5660,10993],50);
-%PreAnalyze('slomo_1485926725.mov',[1,1881;1913,4086;4114,6789;6825,10170;
-%    10215,13668],50);
-%PreAnalyze('slomo_1485930001.mov',[1,1982;2004,2464],50);
+path = fullfile(videoPath2,'sample2.mov');
+%Last section for sample 3 instead of sample 2
+PreAnalyze(path,[1,563;755,1155;1314,1798;1825,2420; ...
+            2450,2986;3012,3868;3894,5633;5660,11179; ...
+            14131,14943],FRAMESPLIT);
+
+path = fullfile(videoPath2,'sample8.mov');
+%First two for sample 8, third for sample 9, all chordwise
+PreAnalyze(path,[1,1983;2001,2468;4480,5510],FRAMESPLIT);
+
+path = fullfile(videoPath2,'sample6.mov');
+%All for sample 6
+PreAnalyze(path,[1,1880;1909,4082;4116,6794;6825,10169; ...
+            10212,10403;10808,13812],FRAMESPLIT);
