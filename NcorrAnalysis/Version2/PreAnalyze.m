@@ -46,6 +46,7 @@ function PreAnalyze( vidName, times, max )
             n=0;
             reference = image;
             imwrite(reference,'reference.jpeg')
+            close
         %%
         % If frame between start and stop, add to vidCell
         elseif (frame >= start && frame <= stop)
