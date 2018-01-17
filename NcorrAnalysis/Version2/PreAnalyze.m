@@ -14,7 +14,7 @@ function PreAnalyze( vidName, times, max )
     %%
     % Give value for max if not exist
     if (~exist('max')) %#ok<EXIST>
-        max = fix((stop-start),10);
+        max = 9999;
     elseif (max > stop - start)
         max = stop - start - 1;
     end
