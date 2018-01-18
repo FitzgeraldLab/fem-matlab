@@ -1,9 +1,10 @@
-function PreAnalyze( vidName, times, max )
+function PreAnalyze( vidName, times, fileName, max )
 %PREANALYZE This function loads the vidName video to prep it under times
 %with a cell length of max.
 %   INPUT:
 %       vidName is the file name of the video
 %       times is a n by 2 array of start and stop times
+%       fileName is the name of the save folder
 %       max is the max number of frames per section
 %   OUTPUT:
     %%
@@ -13,17 +14,19 @@ function PreAnalyze( vidName, times, max )
     stop = times(1,2);
     %%
     % Give value for max if not exist
-    if (~exist('max')) %#ok<EXIST>
+    if (~isempty('max'))
         max = 9999;
-    elseif (max > stop - start)
-        max = stop - start - 1;
+    end
+    if (max > stop - start)
+        vidCell = cell(1,1,stop - start);
+    else
+        vidCell = cell(1,1,max);
     end
     %%
     % Open video
     video = vision.VideoFileReader(vidName);
     %%
     % Create and open new file
-    fileName = vidName(1:end-4);
     mkdir(fullfile(pwd,fileName));
     cd(fileName);
     %%
@@ -31,7 +34,6 @@ function PreAnalyze( vidName, times, max )
     frame = 0;
     index = 1;
     pointer = 1;
-    vidCell = cell(1,1,max);
     %%
     % Get video frame in loop
     while ~isDone(video)
@@ -68,9 +70,9 @@ function PreAnalyze( vidName, times, max )
             end
         %%
         % If frame exends stop, get next times until reach end
-        elseif (frame >= stop)
+        elseif (frame > stop)
             pointer = pointer + 1;
-            if (pointer < length)
+            if (pointer < length + 1)
                 start = times(pointer,1);
                 stop = times(pointer,2);
             else
