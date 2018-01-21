@@ -12,11 +12,11 @@ function openTensileHueghs(fileName)
     Index = 0;
     minguess = 200;
     
-    arrayStrain = zeros(1,minguess);
-    arrayStress = zeros(1,minguess);
-    arrayLoad = zeros(1,minguess);
-    arrayExtension = zeros(1,minguess);
-    arrayTime = zeros(1,minguess);
+    arrayStrain = zeros(1);
+    arrayStress = zeros(1);
+    arrayLoad = zeros(1);
+    arrayExtension = zeros(1);
+    arrayTime = zeros(1);
     %%
     % Open File
     File = fopen(fileName,'r');
@@ -47,7 +47,6 @@ function openTensileHueghs(fileName)
             unitLoad = Array(3);
             unitExtension = Array(4);
             unitTime = Array(5);
-            
             Flag = 3;
             n = 0;
         elseif (Flag == 3)
@@ -57,6 +56,11 @@ function openTensileHueghs(fileName)
                 fileName = strcat('TensileTest',num2str(Index));
                 save(fileName, 'unitStrain', 'unitStress', 'unitLoad', 'unitExtension', ...
                 'unitTime', 'arrayStrain', 'arrayStress', 'arrayLoad','arrayExtension','arrayTime');
+                arrayStrain = zeros(1);
+                arrayStress = zeros(1);
+                arrayLoad = zeros(1);
+                arrayExtension = zeros(1);
+                arrayTime = zeros(1);
             else
                 n = n + 1;
                 Array = strsplit(line,',');
