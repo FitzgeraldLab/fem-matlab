@@ -1,10 +1,11 @@
-function plotHueghs( folder,unitArea,valueArea )
+function [stressvalue, stressunit, arrayStrain, unitStrain, arrayTime, unitTime] = plotHueghs( folder, unitArea, valueArea, display )
 %plotHueghs Plots the values from openTensileHueghs
 %Uses either given strain or calculates with load and area
 %   INPUT:
 %       folder is the name of the folder created from openTensileHueghs
 %       unitArea is the units for input area
 %       valueArea is the value for the input area
+%       display is boolean of if figures should show
     %%
     % Get list of files and load each
     files = dir([folder '/*.mat']);
@@ -21,6 +22,7 @@ function plotHueghs( folder,unitArea,valueArea )
         end
         %%
         % Subplot each
+        if display
         figure('Name','Strain and Stress','units','normalized','outerposition',[0 0 1 1])
         hold on
         subplot(1,3,1);
@@ -41,6 +43,7 @@ function plotHueghs( folder,unitArea,valueArea )
         xlabel(unitStrain);
         ylabel(stressunit);
         hold off
+        end
     end
 end
 

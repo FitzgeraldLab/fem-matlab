@@ -1,13 +1,16 @@
-function plotNcorr(sampleName, sampleNum, x, y)
+function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, sampleNum, x, y, display)
 %openTensileHueghs Takes text file from Hueghs and converts to readible file
 %   INPUT:
 %       sampleName is the name ncorr and edgertronic file (with no extention)
+%       sampleNum is the test number
+%       x, y are the x and y corrdinates of the interested points
+%       display is boolean of if figures should show
     %%
     % Create Trackers
     % Flag: 0 is init/restart, 1 is 2 line delay, 2 is start table, 3 is start numbers
     % Index: number of times numbers are saved
     % minguess: guess for minimum array size
-    % array*: array of variable
+    % array*: array of variable   
     %%
     % Get Edgertronic data
     [rate, unitTime] = openEdger(strcat(sampleName,'.txt'));
@@ -30,6 +33,7 @@ function plotNcorr(sampleName, sampleNum, x, y)
     arrayTime = 0:rate:(size(EXX)*rate);
     %%
     % Subplot each
+    if display
     figure('Name','Strain','units','normalized','outerposition',[0 0 1 1])
     hold on
     subplot(1,3,1);
@@ -50,4 +54,5 @@ function plotNcorr(sampleName, sampleNum, x, y)
     xlabel(unitTime);
     ylabel(unitStrain);
     hold off
+    end
 end
