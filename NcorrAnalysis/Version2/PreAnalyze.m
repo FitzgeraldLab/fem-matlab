@@ -1,11 +1,12 @@
-function PreAnalyze( vidName, times, fileName, max )
+function PreAnalyze( vidName, times, fileName, Name, Value )
 %PREANALYZE This function loads the vidName video to prep it under times
 %with a cell length of max.
 %   INPUT:
 %       vidName is the file name of the video
 %       times is a n by 2 array of start and stop times
 %       fileName is the name of the save folder
-%       max is the max number of frames per section
+%       Name is the type of splitting
+%       Value is the value for the splitting
 %   OUTPUT:
     %%
     % Get size n from times
@@ -13,9 +14,11 @@ function PreAnalyze( vidName, times, fileName, max )
     start = times(1,1);
     stop = times(1,2);
     %%
-    % Give value for max if not exist
-    if (~isempty('max'))
-        max = 9999;
+    % Checks Name and Value
+    if (strcmpi(Name,'fraction'))
+        max = ceil((stop-start)/Value);
+    elseif (strcmpi(Name,'step'))
+        max = Value;
     end
     if (max > stop - start)
         vidCell = cell(1,1,stop - start);
@@ -58,7 +61,7 @@ function PreAnalyze( vidName, times, fileName, max )
             %%
             % If vidCell fills to max size, save file and start again
             if((n == max) || (dif == 0))
-                name = strcat('ready',int2str(index));
+                name = strcat('ready',int2str(pointer),'_',int2str(index));
                 save(name,'reference','vidCell')
                 index = index + 1;
                 n = 0;
@@ -75,6 +78,14 @@ function PreAnalyze( vidName, times, fileName, max )
             if (pointer < length + 1)
                 start = times(pointer,1);
                 stop = times(pointer,2);
+                if (strcmpi(Name,'fraction'))
+                    max = ceil((stop-start)/Value)
+                end
+                if (max > stop - start)
+                    vidCell = cell(1,1,stop - start);
+                else
+                    vidCell = cell(1,1,max);
+                end
             else
                 break;
             end
