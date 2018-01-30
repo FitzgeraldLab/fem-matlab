@@ -1,4 +1,4 @@
-function [EXX,EYY,EXY,units] = openNcorr(name, x, y)
+function [EXX,EYY,EXY,unit] = openNcorr(name, x, y)
 %openTensileHueghs Takes text file from Hueghs and converts to readible file
 %   INPUT:
 %       name is the file name
@@ -11,13 +11,15 @@ function [EXX,EYY,EXY,units] = openNcorr(name, x, y)
     load(name);
     %%
     % Get strains
-    size = length(data_dic_save.strain);
+    size = length(data_dic_save.strains);
     EXX = zeros(1,size);
     EYY = zeros(1,size);
     EXY = zeros(1,size);
     for i = 1:size
-        EXX(i) = dic_dic_save.strain(i).plot_exx_ref_formatted(y,x);
-        EYY(i) = dic_dic_save.strain(i).plot_eyy_ref_formatted(y,x);
-        EXY(i) = dic_dic_save.strain(i).plot_exy_ref_formatted(y,x);
+        EXX(i) = data_dic_save.strains(i).plot_exx_ref_formatted(y,x);
+        EYY(i) = data_dic_save.strains(i).plot_eyy_ref_formatted(y,x);
+        EXY(i) = data_dic_save.strains(i).plot_exy_ref_formatted(y,x);
     end
+    unit = data_dic_save.dispinfo.units;
+    unit = strcat(unit,'/',unit);
 end

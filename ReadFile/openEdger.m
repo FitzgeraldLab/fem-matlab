@@ -4,7 +4,7 @@ function [rate, unit] = openEdger(name)
 %       name is the file name
     %%
     % Open File
-    File = fopen(strcat(name,'.txt'),'r');
+    File = fopen(name,'r');
     %%
     % Read Line Loop
     count = 1;

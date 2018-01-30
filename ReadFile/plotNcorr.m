@@ -17,10 +17,10 @@ function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, s
     %%
     % Get Ncorr Data
     cd(sampleName)
-    files = dir(strcat('ncorr',sampleNum,'*.mat'));
+    files = dir(strcat('ncorr',int2str(sampleNum),'*.mat'));
     for i = 1:size(files)
         if (i == 1)
-            [EXX,EYY,EXY,unitStrain] = openNcorr(files(i), x, y);
+            [EXX,EYY,EXY,unitStrain] = openNcorr(files(i).name, x, y);
         else
             [EXX2,EYY2,EXY2,~] = openNcorr(files(i), x, y);
             EXX = [EXX EXX2];
@@ -28,9 +28,10 @@ function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, s
             EXY = [EXY EXY2];
         end
     end
+    cd('..')
     %%
     % Make Time Array
-    arrayTime = 0:rate:(size(EXX)*rate);
+    arrayTime = 0:rate:((length(EXX)-1)*rate);
     %%
     % Subplot each
     if display
