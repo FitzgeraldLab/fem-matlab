@@ -8,6 +8,7 @@ function plotHueghs( folder,unitArea,valueArea )
     %%
     % Get list of files and load each
     files = dir([folder '/*.mat']);
+    display('Going through')
     for i=1:numel(files)
         %%
         % Get proper value for stress
