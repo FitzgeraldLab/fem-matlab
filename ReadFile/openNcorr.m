@@ -5,7 +5,7 @@ function [EXX,EYY,EXY,unit] = openNcorr(name, x, y, cur)
 %       x, y interested x and y coordinate
 %       formatted boolean if should use cur (otherwise, use ref)
 %   OUTPUT:
-%       EXX, EYY, EXY the strains at x,y
+%       EXX, EYY, EXY the average strains of x,y
 %       units the ncorr strain units
     %%
     % Open Files
@@ -44,6 +44,10 @@ function [EXX,EYY,EXY,unit] = openNcorr(name, x, y, cur)
             end
         end
     end
+    EXX = EXX / sizeValues;
+    EYY = EYY / sizeValues;
+    EXY = EXY / sizeValues;
+    
     unit = data_dic_save.dispinfo.units;
     unit = strcat(unit,'/',unit);
 end
