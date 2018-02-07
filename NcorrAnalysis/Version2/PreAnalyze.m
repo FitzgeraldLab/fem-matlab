@@ -37,6 +37,7 @@ function PreAnalyze( vidName, times, fileName, Name, Value )
     frame = 0;
     index = 1;
     pointer = 1;
+    flagFirst = 1;
     %%
     % Get video frame in loop
     while ~isDone(video)
@@ -46,7 +47,8 @@ function PreAnalyze( vidName, times, fileName, Name, Value )
         %%
         % Check if frame number is start and is the first time appeared
         % Make that image the reference frame
-        if ((frame == start) && (index == 1))
+        if ((frame == start) && flagFirst)
+            flagFirst = 0;
             [image,rect] = imcrop(image);
             n=0;
             reference = image;
@@ -78,8 +80,9 @@ function PreAnalyze( vidName, times, fileName, Name, Value )
             if (pointer < length + 1)
                 start = times(pointer,1);
                 stop = times(pointer,2);
+                index = 1;
                 if (strcmpi(Name,'fraction'))
-                    max = ceil((stop-start)/Value)
+                    max = ceil((stop-start)/Value);
                 end
                 if (max > stop - start)
                     vidCell = cell(1,1,stop - start);
