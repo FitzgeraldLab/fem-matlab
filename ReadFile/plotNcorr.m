@@ -1,4 +1,4 @@
-function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, sampleNum, x, y, display)
+function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, sampleNum, x, y, cur, display)
 %openTensileHueghs Takes text file from Hueghs and converts to readible file
 %   INPUT:
 %       sampleName is the name ncorr and edgertronic file (with no extention)
@@ -20,9 +20,9 @@ function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, s
     files = dir(strcat('ncorr',int2str(sampleNum),'*.mat'));
     for i = 1:size(files)
         if (i == 1)
-            [EXX,EYY,EXY,unitStrain] = openNcorr(files(i).name, x, y);
+            [EXX,EYY,EXY,unitStrain] = openNcorr(files(i).name, x, y, cur);
         else
-            [EXX2,EYY2,EXY2,~] = openNcorr(files(i), x, y);
+            [EXX2,EYY2,EXY2,~] = openNcorr(files(i), x, y, cur);
             EXX = [EXX EXX2];
             EYY = [EYY EYY2];
             EXY = [EXY EXY2];

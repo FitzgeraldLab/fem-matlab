@@ -29,7 +29,7 @@ function [EXX,EYY,EXY,unit] = openNcorr(name, x, y, cur)
     EXY = zeros(1,sizeData);
     if cur
         for i = 1:sizeData
-            for j = sizeValues
+            for j = 1:sizeValues
                 EXX(i) = EXX(i) + data_dic_save.strains(i).plot_exx_cur_formatted(y(j),x(j));
                 EYY(i) = EYY(i) + data_dic_save.strains(i).plot_eyy_cur_formatted(y(j),x(j));
                 EXY(i) = EXY(i) + data_dic_save.strains(i).plot_exy_cur_formatted(y(j),x(j));

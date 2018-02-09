@@ -9,7 +9,7 @@ function [stressvalue, stressunit, arrayStrain, unitStrain, arrayTime, unitTime]
     %%
     % Get proper value for stress
     load(name)
-    if(exist('unitArea','var') || exist('valueArea','var'))
+    if(exist('unitArea','var') && exist('valueArea','var'))
         stressvalue = arrayLoad ./ valueArea;
         stressunit = strcat(unitLoad,'/',unitArea);
     else
@@ -18,7 +18,9 @@ function [stressvalue, stressunit, arrayStrain, unitStrain, arrayTime, unitTime]
     end
     %%
     % Subplot each
-    if display
+    if ~exist('display','var')
+        return
+    elseif display
         figure('Name','Strain and Stress','units','normalized','outerposition',[0 0 1 1])
         hold on
         subplot(1,3,1);
