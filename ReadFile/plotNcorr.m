@@ -6,12 +6,6 @@ function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, s
 %       x, y are the x and y corrdinates of the interested points
 %       display is boolean of if figures should show
     %%
-    % Create Trackers
-    % Flag: 0 is init/restart, 1 is 2 line delay, 2 is start table, 3 is start numbers
-    % Index: number of times numbers are saved
-    % minguess: guess for minimum array size
-    % array*: array of variable   
-    %%
     % Get Edgertronic data
     [rate, unitTime] = openEdger(strcat(sampleName,'.txt'));
     %%
