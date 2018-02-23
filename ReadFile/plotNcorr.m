@@ -1,4 +1,4 @@
-function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, sampleNum, x, y, cur, timeStart, timeEnd, display)
+function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, sampleNum, x, y, cur, timeStart, timeEnd)
 %openTensileHueghs Takes text file from Hueghs and converts to readible file
 %   INPUT:
 %       sampleName is the name ncorr and edgertronic file (with no extention)
@@ -40,7 +40,6 @@ function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, s
     arrayTime = 0:rate:((length(EXX)-1)*rate);
     %%
     % Subplot each
-    if display
     figure('Name','Strain','units','normalized','outerposition',[0 0 1 1])
     hold on
     subplot(1,3,1);
@@ -61,5 +60,4 @@ function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, s
     xlabel(unitTime);
     ylabel(unitStrain);
     hold off
-    end
 end

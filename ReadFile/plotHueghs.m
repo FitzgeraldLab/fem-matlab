@@ -1,4 +1,4 @@
-function [stressvalue, stressunit, arrayStrain, unitStrain, arrayTime, unitTime] = plotHueghs( name, unitArea, valueArea, display )
+function [stressvalue, stressunit, arrayStrain, unitStrain, arrayTime, unitTime] = plotHueghs( name, unitArea, valueArea )
 %plotHueghs Plots the values from openTensileHueghs
 %Uses either given strain or calculates with load and area
 %   INPUT:
@@ -18,29 +18,25 @@ function [stressvalue, stressunit, arrayStrain, unitStrain, arrayTime, unitTime]
     end
     %%
     % Subplot each
-    if ~exist('display','var')
-        return
-    elseif display
-        figure('Name','Strain and Stress','units','normalized','outerposition',[0 0 1 1])
-        hold on
-        subplot(1,3,1);
-        plot(arrayTime,stressvalue);
-        title('Stress Over Time');
-        xlabel(unitTime);
-        ylabel(stressunit);
-        
-        subplot(1,3,2);
-        plot(arrayTime,arrayStrain);
-        title('Strain Over Time');
-        xlabel(unitTime);
-        ylabel(unitStrain);
-        
-        subplot(1,3,3);
-        plot(arrayStrain,stressvalue);
-        title('Stress Over Strain');
-        xlabel(unitStrain);
-        ylabel(stressunit);
-        hold off
-    end
+    figure('Name','Strain and Stress','units','normalized','outerposition',[0 0 1 1])
+    hold on
+    subplot(1,3,1);
+    plot(arrayTime,stressvalue);
+    title('Stress Over Time');
+    xlabel(unitTime);
+    ylabel(stressunit);
+    
+    subplot(1,3,2);
+    plot(arrayTime,arrayStrain);
+    title('Strain Over Time');
+    xlabel(unitTime);
+    ylabel(unitStrain);
+    
+    subplot(1,3,3);
+    plot(arrayStrain,stressvalue);
+    title('Stress Over Strain');
+    xlabel(unitStrain);
+    ylabel(stressunit);
+    hold off
 end
 
