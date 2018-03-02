@@ -1,4 +1,4 @@
-function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, sampleNum, x, y, cur, timeStart, timeEnd)
+function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, sampleNum, cur, timeStart, timeEnd, rect)
 %openTensileHueghs Takes text file from Hueghs and converts to readible file
 %   INPUT:
 %       sampleName is the name ncorr and edgertronic file (with no extention)
@@ -15,11 +15,13 @@ function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, s
     for i = 1:size(files)
         if (i == 1)
             if~exist('cur','var')
-                [EXX,EYY,EXY,unitStrain] = openNcorr(files(i).name, x, y);
-            elseif~exist('timeStart','var')
-                [EXX,EYY,EXY,unitStrain] = openNcorr(files(i).name, x, y, cur);
+                [EXX,EYY,EXY,unitStrain] = openNcorr_Image(files(i).name);
+            elseif~exist('timeEnd','var')
+                [EXX,EYY,EXY,unitStrain] = openNcorr_Image(files(i).name, cur);
+            elseif~exist('rect','var')
+                [EXX,EYY,EXY,unitStrain] = openNcorr_Image(files(i).name, cur, timeStart, timeEnd);
             else
-                [EXX,EYY,EXY,unitStrain] = openNcorr(files(i).name, x, y, cur, timeStart, timeEnd);
+                [EXX,EYY,EXY,unitStrain] = openNcorr_Image(files(i).name, cur, timeStart, timeEnd, rect);
             end
         else
             if~exist('cur','var')
