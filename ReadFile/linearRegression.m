@@ -1,4 +1,4 @@
-function poly = linearRegression( x, y, xstart, xend)
+function [poly, mse] = linearRegression( x, y, xstart, xend)
 
     found = 0;
     for i = 1:length(x)
@@ -14,5 +14,14 @@ function poly = linearRegression( x, y, xstart, xend)
     if found == 1
         endVal = i;
     end
-    poly = polyfit(x(startVal:endVal),y(startVal:endVal),1);
+    
+    range = startVal:endVal;
+    poly = polyfit(x(range),y(range),1);
+    ret = polyval(poly,x(range));
+    
+    sum = 0;
+    for i = 1:length(ret)
+        sum = sum + (y(startVal-1+i)-ret(i))^2;
+    end
+    mse = sum / (i - 2);
 end

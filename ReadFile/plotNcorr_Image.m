@@ -1,4 +1,4 @@
-function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, sampleNum, cur, timeStart, timeEnd, rect)
+function [EXX,EYY,EXY,unitStrain,stdEXX,stdEYY,stdEXY,arrayTime,unitTime] = plotNcorr(sampleName, sampleNum, cur, timeStart, timeEnd, rect)
 %openTensileHueghs Takes text file from Hueghs and converts to readible file
 %   INPUT:
 %       sampleName is the name ncorr and edgertronic file (with no extention)
@@ -15,25 +15,28 @@ function [EXX,EYY,EXY,unitStrain, arrayTime, unitTime] = plotNcorr(sampleName, s
     for i = 1:size(files)
         if (i == 1)
             if~exist('cur','var')
-                [EXX,EYY,EXY,unitStrain] = openNcorr_Image(files(i).name);
+                [EXX,EYY,EXY,unitStrain,stdEXX,stdEYY,stdEXY] = openNcorr_Image(files(i).name);
             elseif~exist('timeEnd','var')
-                [EXX,EYY,EXY,unitStrain] = openNcorr_Image(files(i).name, cur);
+                [EXX,EYY,EXY,unitStrain,stdEXX,stdEYY,stdEXY] = openNcorr_Image(files(i).name, cur);
             elseif~exist('rect','var')
-                [EXX,EYY,EXY,unitStrain] = openNcorr_Image(files(i).name, cur, timeStart, timeEnd);
+                [EXX,EYY,EXY,unitStrain,stdEXX,stdEYY,stdEXY] = openNcorr_Image(files(i).name, cur, timeStart, timeEnd);
             else
-                [EXX,EYY,EXY,unitStrain] = openNcorr_Image(files(i).name, cur, timeStart, timeEnd, rect);
+                [EXX,EYY,EXY,unitStrain,stdEXX,stdEYY,stdEXY] = openNcorr_Image(files(i).name, cur, timeStart, timeEnd, rect);
             end
         else
             if~exist('cur','var')
-                [EXX2,EYY2,EXY2,~] = openNcorr(files(i).name, x, y);
+                [EXX2,EYY2,EXY2,~,stdEXX2,stdEYY2,stdEXY2] = openNcorr(files(i).name, x, y);
             elseif~exist('timeStart','var')
-                [EXX2,EYY2,EXY2,~] = openNcorr(files(i).name, x, y, cur);
+                [EXX2,EYY2,EXY2,~,stdEXX2,stdEYY2,stdEXY2] = openNcorr(files(i).name, x, y, cur);
             else
-                [EXX2,EYY2,EXY2,~] = openNcorr(files(i).name, x, y, cur, timeStart, timeEnd);
+                [EXX2,EYY2,EXY2,~,stdEXX2,stdEYY2,stdEXY2] = openNcorr(files(i).name, x, y, cur, timeStart, timeEnd);
             end
             EXX = [EXX EXX2];
             EYY = [EYY EYY2];
             EXY = [EXY EXY2];
+            stdEXX = [stdEXX stdEXX2];
+            stdEYY = [stdEYY stdEYY2];
+            stdEXY = [stdEXY stdEXY2];
         end
     end
     cd('..')

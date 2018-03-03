@@ -16,9 +16,11 @@ function [EXX,EYY,EXY,unit,stdEXX,stdEYY,stdEXY] = openNcorr_Image(name, cur, ti
     img = imread('reference.jpeg');
     if ~exist('rect','var')
         [~,rect] = imcrop(img);
+        close
     elseif length(rect) ~= 4
         fprintf('rect input must contain four inputs')
         [~,rect] = imcrop(img);
+        close
     end
     [ynew,xnew] = size(data_dic_save.strains(1).plot_exx_cur_formatted);
     [y,x,~] = size(img);
