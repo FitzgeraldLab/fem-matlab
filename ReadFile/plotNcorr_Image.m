@@ -1,4 +1,4 @@
-function [EXX,EYY,EXY,unitStrain,stdEXX,stdEYY,stdEXY,arrayTime,unitTime] = plotNcorr(sampleName, sampleNum, cur, timeStart, timeEnd, rect)
+function [EXX,EYY,EXY,unitStrain,stdEXX,stdEYY,stdEXY,arrayTime,unitTime] = plotNcorr_Image(sampleName, sampleNum, cur, timeStart, timeEnd, rect)
 %openTensileHueghs Takes text file from Hueghs and converts to readible file
 %   INPUT:
 %       sampleName is the name ncorr and edgertronic file (with no extention)
