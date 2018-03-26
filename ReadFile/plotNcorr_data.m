@@ -10,7 +10,8 @@ function [EXX,EYY,EXY,polyXX,polyYY,polyXY,unitStrain,stdEXX,stdEYY,stdEXY,mseXX
     load(Name)
     %%
     % Get polyval
-    for i = length(polyXX(:,1)):-1:1
+    numSize = length(polyXX(:,1));
+    for i = numSize:-1:1
         valXX(i,:) = getPolyfit(polyXX(i,:),arrayTime);
         valYY(i,:) = getPolyfit(polyYY(i,:),arrayTime);
         valXY(i,:) = getPolyfit(polyXY(i,:),arrayTime);
@@ -23,33 +24,45 @@ function [EXX,EYY,EXY,polyXX,polyYY,polyXY,unitStrain,stdEXX,stdEYY,stdEXY,mseXX
     % Subplot each
     figure('Name','Strain','units','normalized','outerposition',[0 0 1 1])
     subplot(1,3,1);
-    scatter(arrayTime,EXX);
+    scatter(arrayTime,EXX,'DisplayName','Strain Points');
     hold on
-    plot(arrayTime,valXX);
+    for i = numSize:-1:1
+        name = [num2str(polyXX(i,1)) '*t + ' num2str(polyXX(i,2))];
+        plot(arrayTime,valXX(i,:),'DisplayName',name);
+    end
     title('Strain EXX Over Time');
     xlabel(unitTime);
     ylabel(unitStrain);
     ylim(valXXLim)
+    legend('show','Location','southeast')
     hold off
     
     subplot(1,3,2);
-    scatter(arrayTime,EYY);
+    scatter(arrayTime,EYY,'DisplayName','Strain Points');
     hold on
-    plot(arrayTime,valYY);
+    for i = numSize:-1:1
+        name = [num2str(polyYY(i,1)) '*t + ' num2str(polyYY(i,2))];
+        plot(arrayTime,valYY(i,:),'DisplayName',name);
+    end
     title('Strain EYY Over Time');
     xlabel(unitTime);
     ylabel(unitStrain);
     ylim(valYYLim)
+    legend('show','Location','southeast')
     hold off
     
     subplot(1,3,3);
-    scatter(arrayTime,EXY);
+    scatter(arrayTime,EXY,'DisplayName','Strain Points');
     hold on
-    plot(arrayTime,valXY);
+    for i = numSize:-1:1
+        name = [num2str(polyXY(i,1)) '*t + ' num2str(polyXY(i,2))];
+        plot(arrayTime,valXY(i,:),'DisplayName',name);
+    end
     title('Strain EXY Over Time');
     xlabel(unitTime);
     ylabel(unitStrain);
     ylim(valXYLim)
+    legend('show','Location','southeast')
     hold off
 end
 
