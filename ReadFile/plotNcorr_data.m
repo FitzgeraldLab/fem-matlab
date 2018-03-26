@@ -10,52 +10,54 @@ function [EXX,EYY,EXY,polyXX,polyYY,polyXY,unitStrain,stdEXX,stdEYY,stdEXY,mseXX
     load(Name)
     %%
     % Get polyval
-    [valXX,sizeXX] = getPolyfit(polyXX,arrayTime,1.01*max(EXX));
-    [valYY,sizeYY] = getPolyfit(polyYY,arrayTime,1.01*max(EYY));
-    [valXY,sizeXY] = getPolyfit(polyXY,arrayTime,1.01*max(EXY));
+    for i = length(polyXX(:,1)):-1:1
+        valXX(i,:) = getPolyfit(polyXX(i,:),arrayTime);
+        valYY(i,:) = getPolyfit(polyYY(i,:),arrayTime);
+        valXY(i,:) = getPolyfit(polyXY(i,:),arrayTime);
+    
+        valXXLim = [0,max(EXX)*1.01];
+        valYYLim = [0,max(EYY)*1.01];
+        valXYLim = [0,max(EXY)*1.01];
+    end
     %%
     % Subplot each
     figure('Name','Strain','units','normalized','outerposition',[0 0 1 1])
     subplot(1,3,1);
     scatter(arrayTime,EXX);
     hold on
-    plot(arrayTime(1:sizeXX),valXX);
+    plot(arrayTime,valXX);
     title('Strain EXX Over Time');
     xlabel(unitTime);
     ylabel(unitStrain);
+    ylim(valXXLim)
     hold off
     
     subplot(1,3,2);
     scatter(arrayTime,EYY);
     hold on
-    plot(arrayTime(1:sizeYY),valYY);
+    plot(arrayTime,valYY);
     title('Strain EYY Over Time');
     xlabel(unitTime);
     ylabel(unitStrain);
+    ylim(valYYLim)
     hold off
     
     subplot(1,3,3);
     scatter(arrayTime,EXY);
     hold on
-    plot(arrayTime(1:sizeXY),valXY);
+    plot(arrayTime,valXY);
     title('Strain EXY Over Time');
     xlabel(unitTime);
     ylabel(unitStrain);
+    ylim(valXYLim)
     hold off
 end
 
-function [val,cap] = getPolyfit(poly,x,maximum)
-    %getPolyfit returns values for poly at x that are below maximum
-    % assuming linear polyfit
+function [val] = getPolyfit(poly,x)
+    %getPolyfit returns values for poly at x
+    % assuming linear rising polyfit
     flag = 0;
     for i = length(x):-1:1
-        tempVal = polyval(poly,x(i));
-        if tempVal < maximum && ~flag
-            cap = i;
-            val(i) = tempVal;
-            flag = 1;
-        elseif flag
-            val(i) = tempVal;
-        end
+        val(:,i) = polyval(poly,x(i));
     end
 end
