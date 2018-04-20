@@ -55,22 +55,22 @@ function [EXX,EYY,EXY,unit,stdEXX,stdEYY,stdEXY] = openNcorr_Image(name, cur, ti
     if cur
         for t = timeStart:timeEnd
             counter = counter+1;    
-            EXX(counter) = mean2(data_dic_save.strains(t).plot_exx_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            EYY(counter) = mean2(data_dic_save.strains(t).plot_eyy_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            EXY(counter) = mean2(data_dic_save.strains(t).plot_exy_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            stdEXX(counter) = std2(data_dic_save.strains(t).plot_exx_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            stdEYY(counter) = std2(data_dic_save.strains(t).plot_eyy_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            stdEXY(counter) = std2(data_dic_save.strains(t).plot_exy_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
+            EXX(counter) = mean2(abs(data_dic_save.strains(t).plot_exx_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            EYY(counter) = mean2(abs(data_dic_save.strains(t).plot_eyy_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            EXY(counter) = mean2(abs(data_dic_save.strains(t).plot_exy_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            stdEXX(counter) = std2(abs(data_dic_save.strains(t).plot_exx_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            stdEYY(counter) = std2(abs(data_dic_save.strains(t).plot_eyy_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            stdEXY(counter) = std2(abs(data_dic_save.strains(t).plot_exy_cur_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
         end
     else
         for t = timeStart:timeEnd
             counter = counter+1;    
-            EXX(counter) = mean2(data_dic_save.strains(t).plot_exx_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            EYY(counter) = mean2(data_dic_save.strains(t).plot_eyy_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            EXY(counter) = mean2(data_dic_save.strains(t).plot_exy_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            stdEXX(counter) = std2(data_dic_save.strains(t).plot_exx_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            stdEYY(counter) = std2(data_dic_save.strains(t).plot_eyy_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
-            stdEXY(counter) = std2(data_dic_save.strains(t).plot_exy_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)));
+            EXX(counter) = mean2(abs(data_dic_save.strains(t).plot_exx_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            EYY(counter) = mean2(abs(data_dic_save.strains(t).plot_eyy_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            EXY(counter) = mean2(abs(data_dic_save.strains(t).plot_exy_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            stdEXX(counter) = std2(abs(data_dic_save.strains(t).plot_exx_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            stdEYY(counter) = std2(abs(data_dic_save.strains(t).plot_eyy_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
+            stdEXY(counter) = std2(abs(data_dic_save.strains(t).plot_exy_ref_formatted(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3))));
         end
     end
     EXX = EXX / sizeValues;
